@@ -1,0 +1,18 @@
+<!doctype html>
+<title>Exchange rates</title>
+{% block content %}
+{{date}}
+{% if error %}
+<div>
+    {{error}}
+</div>
+{% else %}
+<ol>
+    {% for data in model %}
+    <li>{{data['txt']}} to UAH: {{data['rate']}}</li>
+    {% endfor %}
+</ol>
+
+{% endif %}
+{% endblock %}
+
