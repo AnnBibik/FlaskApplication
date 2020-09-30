@@ -8,6 +8,7 @@ app = Flask(__name__)
 error_to_get_response = "Failed to make request by this url"
 error_to_parse_content = "Failed to read response from server"
 error_status_code = "Couldn't get the authorization token"
+error_keys_missing = 'This keys are not exist'
 
 
 @app.route('/')
@@ -28,6 +29,11 @@ def main():
     json_result = res.parse_content(response.content)
     if json_result is None:
         return return_error(error_to_parse_content)
+    else:
+        for data in json_result:
+            if 'txt' not in data and \
+                    'rate' not in data:
+                return return_error(error_keys_missing)
 
     return render_template("index.html", model=json_result, date=show_date())
 
